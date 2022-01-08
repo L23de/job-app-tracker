@@ -8,3 +8,10 @@ body {
     margin: 0;
     padding: 0;
 }
+
+/* Ensures all containers are width-responsive */
+.container {
+    flex: display;
+    width: min(80%, 70rem);
+    padding-inline: 5%;
+}

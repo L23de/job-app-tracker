@@ -26,13 +26,15 @@ const statusList = [
 </script>
 
 <template>
-    <div id="statusList">
-        <div v-for="statusItem in statusList" :key="statusItem">
-            <StatusItem v-bind="statusItem" index=1 />
+    <div id="statusList" class="container">
+        <div :id="'status-card-'+index" v-for="(statusItem, index) in statusList" :key="statusItem" class="status-card">
+            <StatusItem v-bind="statusItem" :index="index" />
         </div>
     </div>
 </template>
 
-<style>
-
+<style lang="scss">
+.status-card {
+    margin-block: 1rem;
+}
 </style>

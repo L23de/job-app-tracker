@@ -11,13 +11,13 @@ const selectOptions = [
 </script>
 
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh lpR fFf" class="bg-accent-light">
     <AppHeader />
 
     <q-page-container>
       <q-page>
         <!-- Div used to isolate component from CSS selector -->
-        <div id="termSelect">
+        <div id="termSelect" class="container">
           <q-select borderless v-model="selectedTerm" :options="selectOptions" label="Term"/>
         </div>
 
@@ -41,7 +41,6 @@ const selectOptions = [
 }
 
 #termSelect {
-  width: min(80%, 55rem);
-  padding-inline: 5%;
+  margin-top: 1rem;
 }
 </style>
