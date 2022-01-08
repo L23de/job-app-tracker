@@ -14,8 +14,36 @@ body {
     padding: 0;
 }
 
+/* Fixes some of Quasar's components being center text */
+input {
+    text-align: left;
+}
+
 /* Ensures all containers are width-responsive */
 .container {
     flex: display;
     width: min(var(--width-percent), var(--width-units));
 }
+
+.modal {
+    box-sizing: border-box;
+    width: min(70%);
+    padding: 1.5rem;
+}
+
+.modal-title {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding-left: 1.2rem;
+    font-size: 1.75rem;
+}
+
+.modal-prompts {
+    padding-top: 0.5rem;
+    text-align: left;
+}
+
+.modal-question {
+    margin-top: 0.5rem;
+}
+
