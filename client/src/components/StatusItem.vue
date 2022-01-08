@@ -12,8 +12,8 @@ const props = defineProps({
 <template>
     <q-card class="card">
         <div class="card-left">
-            <p class="status-position">{{ position }}</p>
             <p class="status-company">{{ company }}</p>
+            <p class="status-position">{{ position }}</p>
         </div>
 
         <div class="card-right">
@@ -39,13 +39,15 @@ $statusFontSmall: 1rem;
 
     .card-left {
         text-align: left;
+        
+        .status-company {
+            font-size: $statusFontSmall;
+            padding-left: 0.4rem; // Align different font weights
+            opacity: 0.7;
+        }
 
         .status-position {
             font-size: $statusFontLarge;
-        }
-
-        .status-company {
-            font-size: $statusFontSmall;
         }
     }
 

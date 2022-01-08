@@ -41,9 +41,14 @@ input {
 .modal-prompts {
     padding-top: 0.5rem;
     text-align: left;
+    padding-bottom: 0;
 }
 
 .modal-question {
     margin-top: 0.5rem;
+}
+
+.modal-buttons {
+    padding-block: 0 
 }
 
