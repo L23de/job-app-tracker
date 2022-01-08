@@ -31,7 +31,7 @@ $statusFontSmall: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1rem 1.3rem;
 
     p {
         margin: 0;
@@ -42,7 +42,6 @@ $statusFontSmall: 1rem;
         
         .status-company {
             font-size: $statusFontSmall;
-            padding-left: 0.4rem; // Align different font weights
             opacity: 0.7;
         }
 
@@ -54,7 +53,7 @@ $statusFontSmall: 1rem;
     .card-right {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        // justify-content: space-between;
         text-align: right;
 
         .status-curr-status {

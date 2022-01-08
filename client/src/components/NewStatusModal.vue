@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 // Represents the state for showing the modal to add a new status
-const newStatusModal = ref(true)
+const newStatusModal = ref(false)
 
 // Formats date to mm/dd/yyyy for modal
 // Src: https://www.codegrepper.com/code-examples/javascript/getting+current+date+in+mmddyyyy+format+in+js
@@ -22,21 +22,40 @@ const date = ref(formatDate)
 // Handle validation and submission of the modal form
 let validated = ref(false)
 
+function validateDate(value) {
+    return /^(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/.test(value)
+}
+
 function validate() {
-    if (position.value && company.value && status.value && date.value) {
+    console.log(date.value)
+    if (position.value && company.value && status.value && validateDate(date.value)) {
         validated.value = true
     } else {
         validated.value = false
     }
-    console.log(validated)
 }
 
-function submit(e) {
+function submit() {
     // If submit, clear out all input vars
-    if (validate()) {
+    if (validated.value || validate()) {
+        const data = {
+            'position': position.value,
+            'company': company.value,
+            'status': status.value,
+            'date': date.value
+        }
 
+        cancel() // Clear out input vars
     }
+}
 
+function cancel() {
+    newStatusModal.value = false // Close the modal
+
+    position.value = ''
+    company.value = ''
+    status.value = ''
+    date.value = formatDate
 }
 </script>
 
@@ -53,19 +72,22 @@ function submit(e) {
                 Add New Status
             </q-card-section>
 
-            <q-card-section class="modal-prompts">
-                <q-input dense v-model="position" label="Position" autofocus @keyup.enter="submit" @blur="validate" class="modal-question" />
+            <q-card-section class="modal-prompts" @keyup.enter="submit" @keyup.esc="cancel">
+                <q-input dense v-model="position" label="Position" autofocus @blur="validate" class="modal-question" />
 
-                <q-input dense v-model="company" label="Company" @keyup.enter="submit" @blur="validate" class="modal-question" />
+                <q-input dense v-model="company" label="Company" @blur="validate" class="modal-question" />
 
-                <q-input dense v-model="status" label="Status" @keyup.enter="submit" @blur="validate" class="modal-question" />
+                <q-input dense v-model="status" label="Status" @blur="validate" class="modal-question" />
 
                 <!-- Date picker checks date in mm/dd/yyyy format -->
+                <!-- Validate functions being called multiple times might not be efficient, but it will do for now -->
                 <q-input 
                     mask="##/##/####" 
-                    placeholder="mm/dd/yyyy" 
-                    :rules="[value => /^(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/.test(value)]" lazy-rules
-                    @blur="validate" @keyup.enter="submit" 
+                    placeholder="mm/dd/yyyy"
+                    @blur="validate"
+                    @update:model-value="validate"
+                    :rules="[validateDate]" lazy-rules
+                    error-message="Date should be in the form of 'mm/dd/yyyy'"
                     dense v-model="date" label="Date" class="modal-question">
 
                     <template v-slot:append>
@@ -79,8 +101,8 @@ function submit(e) {
             </q-card-section>
 
             <q-card-actions align="right" class="text-primary modal-buttons">
-                <q-btn flat label="Cancel" v-close-popup />
-                <q-btn flat id="modal-submit" label="Add Status" :disable="!validated" v-close-popup />
+                <q-btn flat label="Cancel" @click="cancel" />
+                <q-btn flat id="modal-submit" label="Add Status" :disable="!validated" @click="submit" />
             </q-card-actions>
         </q-card>
     </q-dialog>

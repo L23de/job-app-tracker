@@ -5,7 +5,6 @@
 
 * {
     font-family: Helvetica, sans-serif;
-    text-align: center;
     box-sizing: border-box;
 }
 
@@ -15,7 +14,7 @@ body {
 }
 
 /* Fixes some of Quasar's components being center text */
-input {
+input, .alert {
     text-align: left;
 }
 
@@ -49,6 +48,6 @@ input {
 }
 
 .modal-buttons {
-    padding-block: 0 
+    padding-bottom: 0;
 }
 

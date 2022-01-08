@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss">
-q-header {
-    position: sticky;
+.q-header {
+    text-align: center;
 }
 </style>

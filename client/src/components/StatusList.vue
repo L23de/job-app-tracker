@@ -22,6 +22,66 @@ const statusList = [
             'Date2'
         ]
     },
+    {
+        'position': 'Pos2',
+        'company': 'Company2',
+        'statuses': [
+            'Interviewed'
+        ],
+        'dates': [
+            'Date2'
+        ]
+    },
+    {
+        'position': 'Pos2',
+        'company': 'Company2',
+        'statuses': [
+            'Interviewed'
+        ],
+        'dates': [
+            'Date2'
+        ]
+    },
+    {
+        'position': 'Pos2',
+        'company': 'Company2',
+        'statuses': [
+            'Interviewed'
+        ],
+        'dates': [
+            'Date2'
+        ]
+    },
+    {
+        'position': 'Pos2',
+        'company': 'Company2',
+        'statuses': [
+            'Interviewed'
+        ],
+        'dates': [
+            'Date2'
+        ]
+    },
+    {
+        'position': 'Pos2',
+        'company': 'Company2',
+        'statuses': [
+            'Interviewed'
+        ],
+        'dates': [
+            'Date2'
+        ]
+    },
+    {
+        'position': 'Pos2',
+        'company': 'Company2',
+        'statuses': [
+            'Interviewed'
+        ],
+        'dates': [
+            'Date2'
+        ]
+    }
 ]
 </script>
 
