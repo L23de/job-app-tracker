@@ -15,6 +15,9 @@ As a student, while I was navigating my job search, I found it difficult to keep
 - [ ] Link the frontend with backend
 - [ ] Deploy to Heroku so it can scale easily and be publicly accessible
 - [ ] Work on extra features
+- [ ] Potentially expand to progress web apps (PWA) and a mobile app
+
+> Design the app with responsiveness in mind
 
 ## Features
 
