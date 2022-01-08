@@ -1,0 +1,4 @@
+# Ignore all dotfiles, use a NOT to include
+.*
+
+!.gitignore
