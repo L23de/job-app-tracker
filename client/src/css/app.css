@@ -1,3 +1,8 @@
+:root {
+    --width-percent: 80%;
+    --width-units: 60rem;
+}
+
 * {
     font-family: Helvetica, sans-serif;
     text-align: center;
@@ -12,6 +17,5 @@ body {
 /* Ensures all containers are width-responsive */
 .container {
     flex: display;
-    width: min(80%, 70rem);
-    padding-inline: 5%;
+    width: min(var(--width-percent), var(--width-units));
 }

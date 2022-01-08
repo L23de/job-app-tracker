@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import AppHeader from './components/AppHeader.vue'
 import StatusList from './components/StatusList.vue'
+import FloatingActionButton from './components/FloatingActionButton.vue'
 
 const selectedTerm = ref('')
 const selectOptions = [
@@ -23,6 +24,8 @@ const selectOptions = [
 
         <StatusList />
       </q-page>
+
+      <FloatingActionButton />
     </q-page-container>
     
 
