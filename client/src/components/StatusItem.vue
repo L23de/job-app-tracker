@@ -17,7 +17,7 @@ const props = defineProps({
         </div>
 
         <div class="card-right">
-            <q-chip class="status-curr-status" size="1rem">{{ statuses[statuses.length - 1] }}</q-chip>
+            <q-chip :ripple="false" class="status-curr-status" size="1rem">{{ statuses[statuses.length - 1] }}</q-chip>
             <p class="status-last-date">Last Updated: {{ dates[dates.length - 1] }}</p>
         </div>
     </q-card>

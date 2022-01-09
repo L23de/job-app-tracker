@@ -11,7 +11,8 @@
     "@quasar/extras": "^1.12.2",
     "gh-pages": "^3.2.3",
     "quasar": "^2.4.4",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@quasar/vite-plugin": "^1.0.4",

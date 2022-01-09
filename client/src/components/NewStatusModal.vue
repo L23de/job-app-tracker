@@ -46,6 +46,8 @@ function submit() {
         }
 
         cancel() // Clear out input vars
+
+        // Send API call to server here
     }
 }
 
@@ -84,7 +86,6 @@ function cancel() {
                 <q-input 
                     mask="##/##/####" 
                     placeholder="mm/dd/yyyy"
-                    @blur="validate"
                     @update:model-value="validate"
                     :rules="[validateDate]" lazy-rules
                     error-message="Date should be in the form of 'mm/dd/yyyy'"
