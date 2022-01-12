@@ -47,7 +47,7 @@ function submit() {
 
         cancel() // Clear out input vars
 
-        // Send API call to server here
+        // Send POST to server here
     }
 }
 

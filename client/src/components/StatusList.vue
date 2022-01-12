@@ -3,7 +3,6 @@ import { useStore } from 'vuex'
 import StatusItem from './StatusItem.vue'
 
 const store = useStore()
-
 const statusList = store.state.statusList
 </script>
 

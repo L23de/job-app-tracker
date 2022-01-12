@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.12.2",
+    "axios": "^0.24.0",
     "gh-pages": "^3.2.3",
     "quasar": "^2.4.4",
     "vue": "^3.2.25",

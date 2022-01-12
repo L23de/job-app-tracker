@@ -18,9 +18,9 @@ const selectOptions = [
     <q-page-container>
       <q-page>
         <!-- Div used to isolate component from CSS selector -->
-        <div id="termSelect" class="container">
+        <!-- <div id="termSelect" class="container">
           <q-select borderless v-model="selectedTerm" :options="selectOptions" label="Term"/>
-        </div>
+        </div> -->
 
         <StatusList />
       </q-page>
