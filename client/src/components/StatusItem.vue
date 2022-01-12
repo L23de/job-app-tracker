@@ -28,10 +28,14 @@ let editMode = ref(false)
 
 <template>
     <q-card class="card">
-        <div :id="'card-left-'+index" class="card-left">
-            <p v-show="!editMode" class="status-company display">{{ company }}</p>
-            <p v-show="!editMode" class="status-position display">{{ position }}</p>
+        <!-- Display left -->
+        <div v-show="!editMode" :id="'card-left-'+index" class="card-left">
+            <p class="status-company display">{{ company }}</p>
+            <p class="status-position display">{{ position }}</p>
+        </div>
 
+        <!-- Edit left -->
+        <div v-show="editMode" :id="'card-left-edit-'+index" class="card-left">
             <q-input v-show="editMode" v-model="company" dense placeholder="Company" autofocus class="status-company input" />
             <q-input v-show="editMode" v-model="position" dense placeholder="Position" class="status-position input" />
         </div>
@@ -39,18 +43,22 @@ let editMode = ref(false)
         <div :id="'card-split-'+index" class="card-split">
         </div>
 
-        <div class="card-right">
-            <q-chip v-show="!editMode" :ripple="false" class="status-curr-status display" :color="statusOpts[statuses[statuses.length - 1]]['color']" size="1rem">{{ statusOpts[statuses[statuses.length - 1]]['label'] }}</q-chip>
-            <q-btn v-show="!editMode" @click="editMode = !editMode" unelevated label="Edit" class="status-submit input" />
+        <!-- Display right -->
+        <div v-show="!editMode" :id="'card-right-'+index" class="card-right">
+            <q-chip :ripple="false" class="status-curr-status display" :color="statusOpts[statuses[statuses.length - 1]]['color']" size="1rem">{{ statusOpts[statuses[statuses.length - 1]]['label'] }}</q-chip>
+            <q-btn @click="editMode = !editMode" unelevated label="Edit" class="status-submit input" />
             <!-- <p class="status-last-date">Last Updated: {{ dates[dates.length - 1] }}</p> -->
-
-            <q-chip v-show="editMode" :ripple="false" class="status-curr-status input" :color="statusOpts[statuses[statuses.length - 1]]['color']" size="1rem">
+        </div>
+        
+        <!-- Edit right -->
+        <div v-show="editMode" :id="'card-right-edit-'+index" class="card-right">
+            <q-chip :ripple="false" class="status-curr-status input" :color="statusOpts[statuses[statuses.length - 1]]['color']" size="1rem">
                 {{ statusOpts[statuses[statuses.length - 1]]['label'] }}
                 <q-select borderless hide-selected option-value='index' emit-value v-model="statuses[statuses.length-1]" :options="statusOpts" />
             </q-chip>
             <div>
-                <q-btn v-show="editMode" @click="editMode = !editMode" unelevated label="Cancel" class="status-submit input" />
-                <q-btn v-show="editMode" @click="editMode = !editMode" unelevated color="amber" label="Submit" class="status-submit input" />
+                <q-btn @click="editMode = !editMode" unelevated label="Cancel" class="status-submit input" />
+                <q-btn @click="editMode = !editMode" unelevated color="amber" label="Submit" class="status-submit input" />
             </div>
         </div>
 
