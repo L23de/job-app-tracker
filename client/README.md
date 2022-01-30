@@ -1,24 +1,11 @@
-# Frontend/Client
+# Vue 3 + Typescript + Vite
 
-Powered by the following technologies:
+This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-- [Vue.js](https://v3.vuejs.org/) - Frontend progressive framework (Built using Vue3)
-- [Vite](https://vitejs.dev/) - Frontend tooling suite (Mostly used as a module bundler for hot reloads and running a dev server)
-- [Sass/Scss](https://sass-lang.com/) - Amazing CSS preprocessor
-- [Quasar](https://quasar.dev/) - Frontend Vue UI library/framework for quick development
+## Recommended IDE Setup
 
-## Usage
+- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
-After cloning with your preferred method, run the following commands
+## Type Support For `.vue` Imports in TS
 
-> Note: This is just for deploying the frontend
-
-```bash
-cd job-app-tracker/client # CD into the client directory
-yarn install # Install project's dependencies
-yarn dev # Run a local server
-```
-
-By default, `yarn dev` will run the server on port 3000. So the website can be accessed through <http://localhost:3000/job-app-tracker/> (Note the `job-app-tracker` extension, this is used for the deployed Github Pages while frontend work was being done, will be changed after launch to Heroku)
-
-If port 3000 is used on your machine, after running `yarn dev`, your shell should give you the URL that the server is running on
+Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
