@@ -2,12 +2,6 @@
 	<div class="content-wrap">
 		<div id="job-list">
 			<StandardCard />
-			<StandardCard />
-			<StandardCard />
-			<StandardCard /><StandardCard />
-			<StandardCard /><StandardCard />
-			<StandardCard /><StandardCard />
-			<StandardCard />
 		</div>
 
 		<div class="add-button">

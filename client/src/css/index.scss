@@ -4,7 +4,7 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-html {
+body {
 	background: $background;
 	font-family: $sansFont;
 }
@@ -49,12 +49,12 @@ a {
 
 .card {
 	background: white;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	display: flex;
-	flex-direction: row;
 	border-radius: 9px;
-	padding: 10px;
+	padding: 15px;
 	width: 100%;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+	p {
+		margin: 0;
+	}
 }
