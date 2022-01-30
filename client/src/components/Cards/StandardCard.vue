@@ -14,8 +14,8 @@
 						<input type="checkbox" v-model="editMode" />
 						<i class="fas fa-pen unchecked"></i>
 						<i class="fas fa-trash-alt checked"></i>
-						<i class="fas fa-check checked"></i>
 						<i class="fas fa-times checked"></i>
+						<i class="fas fa-check checked"></i>
 					</label>
 					<label class="checkbox">
 						<input type="checkbox" v-model="detailMode" />
