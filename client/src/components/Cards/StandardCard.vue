@@ -86,10 +86,9 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import DetailCard from "./DetailCard.vue";
-import EditCard from "./EditCard.vue";
 
 export default defineComponent({
-	components: { DetailCard, EditCard },
+	components: { DetailCard },
 	setup() {
 		// Edit mode vars
 		const editMode = ref(false);
@@ -138,16 +137,18 @@ export default defineComponent({
 	}
 
 	.right {
-		flex-shrink: 1;
+		display: flex;
+		flex-direction: column;
 		flex-wrap: wrap;
+		align-items: flex-end;
 
 		.status {
 			// Makes it inline with the company
+			display: flex;
 			margin-top: 4px;
 			margin-bottom: 4px;
-			margin-left: 35px;
+			// margin-left: 35px;
 			font-size: 1rem;
-			flex-grow: 0;
 
 			@media (max-width: $breakpoint-sm) {
 				margin: 0;
@@ -155,15 +156,12 @@ export default defineComponent({
 			}
 
 			@media (max-width: 320px) {
-				margin-right: auto;
+				align-self: flex-start;
 			}
 		}
 
 		.actions {
-			display: flex;
 			margin-top: 12px;
-			margin-right: 4px;
-			justify-content: flex-end;
 			font-size: 16px;
 			column-gap: 2px;
 
@@ -173,12 +171,12 @@ export default defineComponent({
 			}
 
 			@media (max-width: 320px) {
-				justify-content: flex-start;
-				margin-top: 10px;
+				align-self: flex-start;
+				margin-top: 6px;
 			}
 		}
 
-		@media (max-width: $breakpoint-sm) {
+		@media (min-width: 321px) and (max-width: $breakpoint-sm) {
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
