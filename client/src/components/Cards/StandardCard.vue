@@ -82,6 +82,7 @@
 			</div>
 		</div>
 
+		<!-- Known Bug: If editMode is true, and detailMode is toggled, the "temporary" edits are discarded -->
 		<DetailCard ref="detail" v-if="detailMode" :editMode="editMode" :detail="detail"></DetailCard>
 	</div>
 </template>
