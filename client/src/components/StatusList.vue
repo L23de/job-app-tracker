@@ -1,7 +1,7 @@
 <template>
 	<div class="content-wrap">
 		<div id="job-list">
-			<StandardCard v-for="status in statusStore.statusList" v-bind="status"/>
+			<StandardCard v-for="(status, index) in statusList" :index="index" v-bind="status" @delete-status.stop="deleteStatus;" />
 		</div>
 
 		<div class="add-button">
@@ -28,11 +28,18 @@ export default defineComponent({
 	components: { StandardCard },
 	setup() {
 		const newJob = ref(false);
-		const statusStore = dataStore();
+		const store = dataStore();
+		const statusList = store.statusList;
 
 		return {
-			newJob, statusStore
+			store, newJob, statusList
 		};
+	},
+	methods: {
+		deleteStatus(index: Number) {
+			// Call mutate method of the store to remove status at index
+			// this.store
+		},
 	}
 });
 </script>

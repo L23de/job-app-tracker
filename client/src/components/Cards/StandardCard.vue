@@ -35,6 +35,7 @@
 				<!-- Card Actions -->
 				<div v-if="!editMode" class="actions">
 					<!-- Default Actions -->
+					<!-- Enable edit mode -->
 					<q-btn
 						flat
 						round
@@ -42,6 +43,7 @@
 						size="sm"
 						@click="editMode = true"
 					></q-btn>
+					<!-- Toggle details -->
 					<q-btn
 						ref="detailToggleBtn"
 						flat
@@ -54,7 +56,15 @@
 
 				<div v-else class="actions">
 					<!-- Edit actions -->
-					<q-btn flat round icon="fas fa-trash-alt" size="sm"></q-btn>
+					<!-- Delete status -->
+					<q-btn
+						flat
+						round
+						icon="fas fa-trash-alt"
+						size="sm"
+						@click="deleteStatus()"
+					></q-btn>
+					<!-- Disable edit mode -->
 					<q-btn
 						flat
 						round
@@ -62,6 +72,7 @@
 						size="sm"
 						@click="cancelEdit()"
 					></q-btn>
+					<!-- Confirm edit -->
 					<q-btn
 						flat
 						round
@@ -69,7 +80,7 @@
 						size="sm"
 						@click="makeEdit()"
 					></q-btn>
-
+					<!-- Toggle details -->
 					<q-btn
 						ref="detailToggleBtn"
 						flat
@@ -83,7 +94,12 @@
 		</div>
 
 		<!-- Known Bug: If editMode is true, and detailMode is toggled, the "temporary" edits are discarded -->
-		<DetailCard ref="detail" v-if="detailMode" :editMode="editMode" :detail="detail"></DetailCard>
+		<DetailCard
+			ref="detail"
+			v-if="detailMode"
+			:editMode="editMode"
+			:detail="detail"
+		></DetailCard>
 	</div>
 </template>
 
@@ -94,11 +110,15 @@ import DetailCard from "./DetailCard.vue";
 export default defineComponent({
 	components: { DetailCard },
 	props: {
+		index: { type: Number, required: true },
 		company: { type: String, required: true },
 		position: { type: String, required: true },
 		status: { type: String, required: true },
 		detail: { type: String, required: true },
 	},
+	emits: [
+		'deleteStatus'
+	],
 	setup(props) {
 		// Edit mode vars
 		const editMode = ref(false);
@@ -140,20 +160,32 @@ export default defineComponent({
 		},
 
 		cancelEdit() {
-			this.editMode = false;
 			this.companyField = this.companyInfo;
 			this.positionField = this.positionInfo;
 			this.statusField = this.statusInfo;
-			(this.$refs.detail as InstanceType<typeof DetailCard>).cancelEdit();
+
+			if (this.detailMode) {
+				(this.$refs.detail as InstanceType<typeof DetailCard>).cancelEdit();
+			}
+
+			this.editMode = false;
 		},
 
 		makeEdit() {
-			this.editMode = false;
 			// Make updates using API in prod
 			this.companyInfo = this.companyField;
 			this.positionInfo = this.positionField;
 			this.statusInfo = this.statusField;
-			(this.$refs.detail as InstanceType<typeof DetailCard>).makeEdit();
+
+			if (this.detailMode) {
+				(this.$refs.detail as InstanceType<typeof DetailCard>).makeEdit();
+			}
+
+			this.editMode = false;
+		},
+
+		deleteStatus() {
+			this.$emit('deleteStatus', this.index);
 		},
 	},
 });
