@@ -82,7 +82,7 @@
 			</div>
 		</div>
 
-		<DetailCard v-if="detailMode" :editMode="editMode"></DetailCard>
+		<DetailCard ref="detail" v-if="detailMode" :editMode="editMode" :detail="detail"></DetailCard>
 	</div>
 </template>
 
@@ -93,20 +93,21 @@ import DetailCard from "./DetailCard.vue";
 export default defineComponent({
 	components: { DetailCard },
 	props: {
-		company: String,
-		position: String,
-		status: String,
+		company: { type: String, required: true },
+		position: { type: String, required: true },
+		status: { type: String, required: true },
+		detail: { type: String, required: true },
 	},
 	setup(props) {
 		// Edit mode vars
 		const editMode = ref(false);
 
-		// Vars
-		const companyName = props.company;
-		const positionName = props.position;
-		const statusName = props.status;
+		// Temp storage vars (Marked by XInfo)
+		const companyInfo = props.company;
+		const positionInfo = props.position;
+		const statusInfo = props.status;
 
-		// Edit form vars
+		// Edit form vars (Marked by XField)
 		const companyField = ref(props.company);
 		const positionField = ref(props.position);
 		const statusField = ref(props.status);
@@ -118,9 +119,9 @@ export default defineComponent({
 
 		return {
 			editMode,
-			companyName,
-			positionName,
-			statusName,
+			companyInfo,
+			positionInfo,
+			statusInfo,
 			companyField,
 			positionField,
 			statusField,
@@ -139,17 +140,19 @@ export default defineComponent({
 
 		cancelEdit() {
 			this.editMode = false;
-			this.companyField = this.companyName;
-			this.positionField = this.positionName;
-			this.statusField = this.statusName;
+			this.companyField = this.companyInfo;
+			this.positionField = this.positionInfo;
+			this.statusField = this.statusInfo;
+			(this.$refs.detail as InstanceType<typeof DetailCard>).cancelEdit();
 		},
 
 		makeEdit() {
 			this.editMode = false;
 			// Make updates using API in prod
-			this.companyName = this.companyField;
-			this.positionName = this.positionField;
-			this.statusName = this.statusField;
+			this.companyInfo = this.companyField;
+			this.positionInfo = this.positionField;
+			this.statusInfo = this.statusField;
+			(this.$refs.detail as InstanceType<typeof DetailCard>).makeEdit();
 		},
 	},
 });

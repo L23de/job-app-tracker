@@ -4,9 +4,9 @@
 		<div class="notes">
 			<p class="notes-header">Notes</p>
 			<q-input
-					v-model="detailNotes"
+					v-model="detailField"
 					:borderless="!editMode"
-					:readonly="editMode"
+					:readonly="!editMode"
 					class="notes-content"
 					placeholder="Helpful notes about this position and/or company"
 					type="textarea"
@@ -21,13 +21,25 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
 	props: {
-		editMode: Boolean
+		editMode: { type: Boolean, required: true },
+		detail: { type: String, required: true },
 	},
-	setup() {
-		const detailNotes = ref('Lorem ipsum');
+	setup(props) {
+		const detailInfo = props.detail;
+		const detailField = ref(props.detail);
 
 		return {
-			detailNotes
+			detailInfo,
+			detailField
+		}
+	},
+	methods: {
+		cancelEdit() {
+			this.detailField = this.detailInfo;
+		},
+
+		makeEdit() {
+			this.detailInfo = this.detailField;
 		}
 	}
 });

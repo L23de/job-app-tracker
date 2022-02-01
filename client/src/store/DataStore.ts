@@ -8,11 +8,13 @@ export const dataStore = defineStore("statuses", {
 				company: "Company",
 				position: "Position",
 				status: "Accepted",
+				detail: "Detail",
 			},
 			{
 				company: "Company2",
 				position: "Position2",
-				status: "Applied"
+				status: "Applied",
+				detail: "Detail2",
 			}
 		],
 	}),
