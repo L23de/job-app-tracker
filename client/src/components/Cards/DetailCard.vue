@@ -3,7 +3,15 @@
 		<div class="divider"></div>
 		<div class="notes">
 			<p class="notes-header">Notes</p>
-			<p class="notes-content">{{notes}}</p>
+			<q-input
+					v-model="detailNotes"
+					:borderless="!editMode"
+					:readonly="editMode"
+					class="notes-content"
+					placeholder="Helpful notes about this position and/or company"
+					type="textarea"
+					dense
+				></q-input>
 		</div>
 	</div>
 </template>
@@ -12,11 +20,14 @@
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
+	props: {
+		editMode: Boolean
+	},
 	setup() {
-		const notes = ref('Lorem ipsum')
+		const detailNotes = ref('Lorem ipsum');
 
 		return {
-			notes
+			detailNotes
 		}
 	}
 });
@@ -40,6 +51,10 @@ export default defineComponent({
 
 		.notes-content {
 			font-size: 0.875rem;
+
+			textarea {
+				padding-block: 0;
+			}
 		}
 	}
 }

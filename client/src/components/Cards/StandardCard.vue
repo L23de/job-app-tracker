@@ -1,29 +1,33 @@
 <template>
-	<!-- Normal showcase card -->
-	<div v-if="!editMode" class="card">
+	<div class="card">
 		<div class="card-basic">
 			<div class="left">
-				<p class="company">Millennium</p>
-				<p class="position">QA Intern</p>
+				<q-input
+					v-model="companyField"
+					class="company"
+					placeholder="Company"
+					:autogrow="false"
+					:borderless="!editMode"
+					:readonly="!editMode"
+					dense
+				></q-input>
+				<q-input
+					v-model="positionField"
+					class="position"
+					placeholder="Position"
+					:autogrow="false"
+					:borderless="!editMode"
+					:readonly="!editMode"
+					dense
+				></q-input>
 			</div>
-			<div class="separator"></div>
-			<div class="right">
-				<q-chip class="status" label="Accepted"></q-chip>
-				<div class="actions">
-					<!-- Default checkbox is unchecked -->
-					<!-- <label class="checkbox">
-						<input type="checkbox" v-model="editMode" />
-						<i class="fas fa-pen unchecked"></i>
-						<i class="fas fa-trash-alt checked"></i>
-						<i class="fas fa-times checked"></i>
-						<i class="fas fa-check checked"></i>
-					</label>
-					<label class="checkbox">
-						<input type="checkbox" v-model="detailMode" />
-						<i class="fas fa-chevron-down unchecked"></i>
-						<i class="fas fa-chevron-up checked"></i>
-					</label> -->
 
+			<div class="separator"></div>
+
+			<div class="right">
+				<q-chip class="status">Accepted</q-chip>
+				<!-- Enables edit -->
+				<div v-if="!editMode" class="actions">
 					<q-btn
 						flat
 						round
@@ -40,35 +44,9 @@
 						@click="toggleDetail()"
 					></q-btn>
 				</div>
-			</div>
-		</div>
 
-		<DetailCard v-if="detailMode"></DetailCard>
-	</div>
-
-	<!-- Edit Card -->
-	<div v-if="editMode" class="card">
-		<div class="card-basic">
-			<div class="left">
-				<q-input
-					v-model="companyField"
-					class="company"
-					placeholder="Company"
-					:autogrow="false"
-					dense
-				></q-input>
-				<q-input
-					v-model="positionField"
-					class="position"
-					placeholder="Position"
-					:autogrow="false"
-					dense
-				></q-input>
-			</div>
-			<div class="separator"></div>
-			<div class="right">
-				<q-chip class="status">Accepted</q-chip>
-				<div class="actions">
+				<!-- Edit actions -->
+				<div v-if="editMode" class="actions">
 					<q-btn flat round icon="fas fa-trash-alt" size="sm"></q-btn>
 					<q-btn
 						flat
@@ -91,7 +69,7 @@
 			</div>
 		</div>
 
-		<DetailCard v-if="detailMode"></DetailCard>
+		<DetailCard v-if="detailMode" :editMode="editMode"></DetailCard>
 	</div>
 </template>
 
@@ -106,8 +84,8 @@ export default defineComponent({
 		const editMode = ref(false);
 
 		// Edit form vars
-		const companyField = ref("Millennium");
-		const positionField = ref("QA Intern");
+		const companyField = ref("Company");
+		const positionField = ref("Position");
 		const statusField = ref("Accepted");
 
 		// Detail mode vars
