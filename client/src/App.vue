@@ -22,7 +22,8 @@ export default defineComponent({
 		StatusList,
 	},
 	mounted() {
-		const header: Element = document.querySelector(".header");
+		// Header is guaranteed to be in the DOM, so use '!' to override nullness of querySelector()
+		const header: Element = document.querySelector(".header")!;
 		let lastScrollY: number = window.scrollY;
 
 		window.addEventListener("scroll", () => {

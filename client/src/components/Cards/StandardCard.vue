@@ -25,9 +25,17 @@
 			<div class="separator"></div>
 
 			<div class="right">
+				<!-- Card Status -->
 				<q-chip class="status">Accepted</q-chip>
-				<!-- Enables edit -->
+				<!-- <q-chip class="status">
+					<q-input>
+					</q-input>
+				</q-chip> -->
+
+
+				<!-- Card Actions -->
 				<div v-if="!editMode" class="actions">
+					<!-- Default Actions -->
 					<q-btn
 						flat
 						round
@@ -45,8 +53,8 @@
 					></q-btn>
 				</div>
 
-				<!-- Edit actions -->
-				<div v-if="editMode" class="actions">
+				<div v-else class="actions">
+					<!-- Edit actions -->
 					<q-btn flat round icon="fas fa-trash-alt" size="sm"></q-btn>
 					<q-btn
 						flat
