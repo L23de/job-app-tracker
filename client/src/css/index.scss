@@ -18,8 +18,8 @@ body {
 
 // 2nd level contains everything other than the header and footer
 .content-wrap {
-	height: 100vh;
-	padding-block: $navHeight;
+	padding-top: $navHeight;
+	padding-bottom: 150px;
 	margin-inline: auto;
 
 	@media (max-width: $breakpoint-sm) {

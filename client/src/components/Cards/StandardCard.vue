@@ -32,7 +32,6 @@
 					</q-input>
 				</q-chip> -->
 
-
 				<!-- Card Actions -->
 				<div v-if="!editMode" class="actions">
 					<!-- Default Actions -->
@@ -61,9 +60,15 @@
 						round
 						icon="fas fa-times"
 						size="sm"
-						@click="editMode = false"
+						@click="cancelEdit()"
 					></q-btn>
-					<q-btn flat round icon="fas fa-check" size="sm"></q-btn>
+					<q-btn
+						flat
+						round
+						icon="fas fa-check"
+						size="sm"
+						@click="makeEdit()"
+					></q-btn>
 
 					<q-btn
 						ref="detailToggleBtn"
@@ -87,14 +92,24 @@ import DetailCard from "./DetailCard.vue";
 
 export default defineComponent({
 	components: { DetailCard },
-	setup() {
+	props: {
+		company: String,
+		position: String,
+		status: String,
+	},
+	setup(props) {
 		// Edit mode vars
 		const editMode = ref(false);
 
+		// Vars
+		const companyName = props.company;
+		const positionName = props.position;
+		const statusName = props.status;
+
 		// Edit form vars
-		const companyField = ref("Company");
-		const positionField = ref("Position");
-		const statusField = ref("Accepted");
+		const companyField = ref(props.company);
+		const positionField = ref(props.position);
+		const statusField = ref(props.status);
 
 		// Detail mode vars
 		const detailMode = ref(false);
@@ -103,6 +118,9 @@ export default defineComponent({
 
 		return {
 			editMode,
+			companyName,
+			positionName,
+			statusName,
 			companyField,
 			positionField,
 			statusField,
@@ -117,6 +135,21 @@ export default defineComponent({
 			const tmp = this.detailAltIcon;
 			this.detailAltIcon = this.detailIcon;
 			this.detailIcon = tmp;
+		},
+
+		cancelEdit() {
+			this.editMode = false;
+			this.companyField = this.companyName;
+			this.positionField = this.positionName;
+			this.statusField = this.statusName;
+		},
+
+		makeEdit() {
+			this.editMode = false;
+			// Make updates using API in prod
+			this.companyName = this.companyField;
+			this.positionName = this.positionField;
+			this.statusName = this.statusField;
 		},
 	},
 });

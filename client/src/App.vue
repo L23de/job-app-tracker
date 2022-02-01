@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import StatusList from "./components/StatusList.vue";
+import StatusList from "@/components/StatusList.vue";
 
 export default defineComponent({
 	name: "App",
@@ -54,7 +54,7 @@ export default defineComponent({
 	line-height: $navHeight;
 	z-index: 10; // Makes header appear on top of everything
 	transition: transform 0.4s;
-  overflow: hidden;
+	overflow: hidden;
 }
 
 .header--hidden {
@@ -62,8 +62,8 @@ export default defineComponent({
 }
 
 .footer {
-  font-family: $monoFont;
-  background: $background;
+	font-family: $monoFont;
+	background: $background;
 	box-shadow: 0 -13px 10px $background;
 	padding-top: 0;
 	padding-bottom: 8px;

@@ -1,7 +1,7 @@
 <template>
 	<div class="content-wrap">
 		<div id="job-list">
-			<StandardCard />
+			<StandardCard v-for="status in statusStore.statusList" v-bind="status"/>
 		</div>
 
 		<div class="add-button">
@@ -22,13 +22,17 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import StandardCard from "./Cards/StandardCard.vue";
+import { dataStore } from "@/store/DataStore";
 
 export default defineComponent({
 	components: { StandardCard },
-	data() {
+	setup() {
+		const newJob = ref(false);
+		const statusStore = dataStore();
+
 		return {
-			newJob : ref(false)
-		}
+			newJob, statusStore
+		};
 	}
 });
 </script>
