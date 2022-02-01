@@ -50,8 +50,20 @@
 	<div v-if="editMode" class="card">
 		<div class="card-basic">
 			<div class="left">
-				<p class="company">Millennium</p>
-				<p class="position">QA Intern</p>
+				<q-input
+					v-model="companyField"
+					class="company"
+					placeholder="Company"
+					:autogrow="false"
+					dense
+				></q-input>
+				<q-input
+					v-model="positionField"
+					class="position"
+					placeholder="Position"
+					:autogrow="false"
+					dense
+				></q-input>
 			</div>
 			<div class="separator"></div>
 			<div class="right">
@@ -93,6 +105,11 @@ export default defineComponent({
 		// Edit mode vars
 		const editMode = ref(false);
 
+		// Edit form vars
+		const companyField = ref("Millennium");
+		const positionField = ref("QA Intern");
+		const statusField = ref("Accepted");
+
 		// Detail mode vars
 		const detailMode = ref(false);
 		const detailIcon = "fas fa-chevron-down";
@@ -100,6 +117,9 @@ export default defineComponent({
 
 		return {
 			editMode,
+			companyField,
+			positionField,
+			statusField,
 			detailMode,
 			detailIcon,
 			detailAltIcon,
@@ -124,15 +144,24 @@ export default defineComponent({
 	flex-direction: row;
 
 	.left {
-		flex-grow: 3;
+		flex: 5;
+		overflow: hidden;
 
 		.company {
 			font-size: 2rem;
+
+			input {
+				padding-top: 10px;
+			}
 		}
 
 		.position {
 			font-size: 1.4rem;
 			font-style: italic;
+
+			input {
+				padding-bottom: 2px;
+			}
 		}
 	}
 
