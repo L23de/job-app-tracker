@@ -1,7 +1,7 @@
 <template>
 	<div class="content-wrap">
 		<div id="job-list">
-			<StandardCard v-for="(status, index) in statusList" :index="index" v-bind="status" @delete-status.stop="deleteStatus;" />
+			<StandardCard v-for="(status, index) in statusList" :index="index" v-bind="status" @delete-status="deleteStatus" />
 		</div>
 
 		<div class="add-button">
@@ -20,25 +20,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import StandardCard from "./Cards/StandardCard.vue";
 import { dataStore } from "@/store/DataStore";
+import { storeToRefs } from "pinia";
 
 export default defineComponent({
 	components: { StandardCard },
 	setup() {
 		const newJob = ref(false);
 		const store = dataStore();
-		const statusList = store.statusList;
 
 		return {
-			store, newJob, statusList
+			newJob, 
+			statusList: computed(() => store.statusList)
 		};
 	},
 	methods: {
-		deleteStatus(index: Number) {
-			// Call mutate method of the store to remove status at index
-			// this.store
+		deleteStatus(index: number) {
+			console.log(index)
+			this.statusList.splice(index, 1);
+			console.log(this.statusList)
 		},
 	}
 });
