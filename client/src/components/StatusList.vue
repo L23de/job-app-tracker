@@ -1,6 +1,6 @@
 <template>
 	<div class="content-wrap">
-		<div id="job-list">
+		<div id="job-list" :key="update">
 			<StandardCard v-for="(status, index) in statusList" :index="index" v-bind="status" @delete-status="deleteStatus" />
 		</div>
 
@@ -30,17 +30,21 @@ export default defineComponent({
 	setup() {
 		const newJob = ref(false);
 		const store = dataStore();
+		const update = 1
 
 		return {
-			newJob, 
+			newJob, update,
 			statusList: computed(() => store.statusList)
 		};
 	},
 	methods: {
+		updateList() {
+			this.update++;
+		},
+
 		deleteStatus(index: number) {
-			console.log(index)
 			this.statusList.splice(index, 1);
-			console.log(this.statusList)
+			this.updateList()
 		},
 	}
 });
