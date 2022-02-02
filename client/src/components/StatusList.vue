@@ -1,21 +1,17 @@
 <template>
 	<div class="content-wrap">
 		<div id="job-list" :key="update">
-			<StandardCard v-for="(status, index) in statusList" :index="index" v-bind="status" @delete-status="deleteStatus" />
+			<StandardCard
+				v-for="(status, index) in statusList"
+				:index="index"
+				v-bind="status"
+				@delete-status="deleteStatus"
+			/>
 		</div>
 
-		<div class="add-button">
+		<div class="add-button" @click="addStatus">
 			<i class="fas fa-plus"></i>
 		</div>
-
-		<!-- <q-page-sticky position="bottom-right" class="fab-container">
-			<q-btn
-				fab
-				icon="ion-add"
-				color="primary"
-				@click="newJob = true"
-			/>
-		</q-page-sticky> -->
 	</div>
 </template>
 
@@ -30,11 +26,12 @@ export default defineComponent({
 	setup() {
 		const newJob = ref(false);
 		const store = dataStore();
-		const update = 1
+		const update = 1;
 
 		return {
-			newJob, update,
-			statusList: computed(() => store.statusList)
+			newJob,
+			update,
+			statusList: computed(() => store.statusList),
 		};
 	},
 	methods: {
@@ -44,9 +41,13 @@ export default defineComponent({
 
 		deleteStatus(index: number) {
 			this.statusList.splice(index, 1);
-			this.updateList()
+			this.updateList();
 		},
-	}
+
+		addStatus() {
+			
+		}
+	},
 });
 </script>
 

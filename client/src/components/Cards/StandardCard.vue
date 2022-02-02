@@ -33,63 +33,15 @@
 				</q-chip> -->
 
 				<!-- Card Actions -->
-				<div v-if="!editMode" class="actions">
-					<!-- Default Actions -->
-					<!-- Enable edit mode -->
-					<q-btn
-						flat
-						round
-						icon="fas fa-pen"
-						size="sm"
-						@click="editMode = true"
-					></q-btn>
-					<!-- Toggle details -->
-					<q-btn
-						ref="detailToggleBtn"
-						flat
-						round
-						:icon="detailIcon"
-						size="sm"
-						@click="toggleDetail()"
-					></q-btn>
-				</div>
-
-				<div v-else class="actions">
-					<!-- Edit actions -->
-					<!-- Delete status -->
-					<q-btn
-						flat
-						round
-						icon="fas fa-trash-alt"
-						size="sm"
-						@click="deleteStatus()"
-					></q-btn>
-					<!-- Disable edit mode -->
-					<q-btn
-						flat
-						round
-						icon="fas fa-times"
-						size="sm"
-						@click="cancelEdit()"
-					></q-btn>
-					<!-- Confirm edit -->
-					<q-btn
-						flat
-						round
-						icon="fas fa-check"
-						size="sm"
-						@click="makeEdit()"
-					></q-btn>
-					<!-- Toggle details -->
-					<q-btn
-						ref="detailToggleBtn"
-						flat
-						round
-						:icon="detailIcon"
-						size="sm"
-						@click="toggleDetail()"
-					></q-btn>
-				</div>
+				<ExistingActions
+					:editMode="editMode"
+					:detailMode="detailMode"
+					@toggle-detail="toggleDetail"
+					@toggle-edit="editMode = !editMode"
+					@delete-status="deleteStatus"
+					@cancel-edit="cancelEdit"
+					@make-edit="makeEdit"
+				/>
 			</div>
 		</div>
 
@@ -106,9 +58,10 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import DetailCard from "./DetailCard.vue";
+import ExistingActions from "./ExistingActions.vue";
 
 export default defineComponent({
-	components: { DetailCard },
+	components: { DetailCard, ExistingActions },
 	props: {
 		index: { type: Number, required: true },
 		company: { type: String, required: true },
@@ -116,9 +69,7 @@ export default defineComponent({
 		status: { type: String, required: true },
 		detail: { type: String, required: true },
 	},
-	emits: [
-		'deleteStatus'
-	],
+	emits: ["deleteStatus"],
 	setup(props) {
 		// Edit mode vars
 		const editMode = ref(false);
@@ -135,8 +86,6 @@ export default defineComponent({
 
 		// Detail mode vars
 		const detailMode = ref(false);
-		const detailIcon = "fas fa-chevron-down";
-		const detailAltIcon = "fas fa-chevron-up";
 
 		return {
 			editMode,
@@ -147,16 +96,11 @@ export default defineComponent({
 			positionField,
 			statusField,
 			detailMode,
-			detailIcon,
-			detailAltIcon,
 		};
 	},
 	methods: {
 		toggleDetail() {
 			this.detailMode = !this.detailMode;
-			const tmp = this.detailAltIcon;
-			this.detailAltIcon = this.detailIcon;
-			this.detailIcon = tmp;
 		},
 
 		cancelEdit() {
@@ -185,7 +129,7 @@ export default defineComponent({
 		},
 
 		deleteStatus() {
-			this.$emit('deleteStatus', this.index);
+			this.$emit("deleteStatus", this.index);
 		},
 	},
 });
@@ -241,22 +185,6 @@ export default defineComponent({
 
 			@media (max-width: 320px) {
 				align-self: flex-start;
-			}
-		}
-
-		.actions {
-			margin-top: 12px;
-			font-size: 16px;
-			column-gap: 2px;
-
-			@media (max-width: $breakpoint-sm) {
-				align-items: center;
-				margin-top: 0;
-			}
-
-			@media (max-width: 320px) {
-				align-self: flex-start;
-				margin-top: 6px;
 			}
 		}
 
