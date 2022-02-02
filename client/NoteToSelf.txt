@@ -1,9 +1,0 @@
-- Use the same StandardCard module for new statuses (Click on FAB)
-	 - Make props non-required and set default values (to blanks proab)
-	 - Focus (and scroll to) new card to grab user's attention
-	 - Have some way to distinguish a new card from existing cards (Highlight, opacity, shadow, background, etc)
-	
-Logic:
-- Adds to local statusList store
-- Upon submit, leave in statusList (and push to prod later)
-- Upon cancel (No delete), remove from statusList
