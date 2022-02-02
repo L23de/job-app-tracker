@@ -26,11 +26,10 @@
 
 			<div class="right">
 				<!-- Card Status -->
-				<q-chip class="status">Accepted</q-chip>
-				<!-- <q-chip class="status">
-					<q-input>
-					</q-input>
-				</q-chip> -->
+				<!-- <q-chip class="status">Accepted</q-chip> -->
+				<q-chip class="status" color="StatusColor8" :key="statusField">
+					<q-select v-model="statusField" option-value="key" emit-value map-options :hide-dropdown-icon="!editMode" :readonly="!editMode" :options="options" options-dense borderless />
+				</q-chip>
 
 				<!-- Card Actions -->
 				<ExistingActions
@@ -56,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import DetailCard from "./DetailCard.vue";
 import ExistingActions from "./ExistingActions.vue";
 
@@ -66,7 +65,7 @@ export default defineComponent({
 		index: { type: Number, required: true },
 		company: { type: String, required: true },
 		position: { type: String, required: true },
-		status: { type: String, required: true },
+		status: { type: Number, required: true },
 		detail: { type: String, required: true },
 	},
 	emits: ["deleteStatus"],
@@ -87,6 +86,19 @@ export default defineComponent({
 		// Detail mode vars
 		const detailMode = ref(false);
 
+		// Status options
+		const options = [
+			{ key: 0, label: "Applied" },
+			{ key: 1, label: "Screened" },
+			{ key: 2, label: "Technical" },
+			{ key: 3, label: "Behavioral" },
+			{ key: 4, label: "Interview" },
+			{ key: 5, label: "Offer Received" },
+			{ key: 6, label: "Accepted" },
+			{ key: 7, label: "Declined" },
+			{ key: 8, label: "Rejected" },
+		];
+
 		return {
 			editMode,
 			companyInfo,
@@ -96,6 +108,9 @@ export default defineComponent({
 			positionField,
 			statusField,
 			detailMode,
+			options,
+
+			console: computed(() => console)
 		};
 	},
 	methods: {
