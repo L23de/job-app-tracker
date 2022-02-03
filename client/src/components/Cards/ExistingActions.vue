@@ -62,6 +62,7 @@
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
+	emits: ["toggleDetail", "toggleEdit", "deleteStatus", "cancelEdit", "makeEdit",],
 	props: {
 		editMode: { type: Boolean, required: true },
 		detailMode: { type: Boolean, required: true },

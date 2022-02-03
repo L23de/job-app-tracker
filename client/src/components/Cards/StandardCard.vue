@@ -27,7 +27,7 @@
 			<div class="right">
 				<!-- Card Status -->
 				<!-- <q-chip class="status">Accepted</q-chip> -->
-				<q-chip class="status" color="StatusColor8" :key="statusField">
+				<q-chip class="status" :key="statusField" :style="'background-color: var(--statusColor' + statusField.toString() + ')'">
 					<q-select v-model="statusField" option-value="key" emit-value map-options :hide-dropdown-icon="!editMode" :readonly="!editMode" :options="options" options-dense borderless />
 				</q-chip>
 
