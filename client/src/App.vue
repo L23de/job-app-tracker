@@ -7,7 +7,7 @@
 	<div class="page-container">
 		<header class="header">Job App Tracker</header>
 
-		<StatusList> </StatusList>
+		<StatusList ref="statusListRef"> </StatusList>
 
 		<footer class="footer">
 			<a href="https://github.com/L23de/job-app-tracker" target="_blank"
@@ -41,6 +41,11 @@ export default defineComponent({
 			}
 			lastScrollY = window.scrollY;
 		});
+	},
+	methods: {
+		addStatus() {
+			(this.$refs.statusListRef  as InstanceType<typeof StatusList>).addStatus();
+		}
 	},
 });
 </script>

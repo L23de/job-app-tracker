@@ -33,8 +33,25 @@
 			<div class="right">
 				<!-- Card Status -->
 				<!-- <q-chip class="status">Accepted</q-chip> -->
-				<q-chip class="status" :key="statusField" :ripple="false" :style="'background-color: var(--statusColor' + statusField.toString() + ')'">
-					<q-select v-model="statusField" option-value="key" emit-value map-options :hide-dropdown-icon="!editMode" :readonly="!editMode" :options="options" options-dense borderless />
+				<q-chip
+					class="status"
+					:key="statusField"
+					:ripple="false"
+					:style="
+						'background-color: var(--statusColor' + statusField.toString() + ')'
+					"
+				>
+					<q-select
+						v-model="statusField"
+						option-value="key"
+						emit-value
+						map-options
+						:hide-dropdown-icon="!editMode"
+						:readonly="!editMode"
+						:options="options"
+						options-dense
+						borderless
+					/>
 				</q-chip>
 
 				<!-- Card Actions -->
@@ -52,7 +69,7 @@
 
 		<!-- Known Bug: If editMode is true, and detailMode is toggled, the "temporary" edits are discarded -->
 		<DetailCard
-			ref="detail"
+			ref="detailRef"
 			v-if="detailMode"
 			:editMode="editMode"
 			:detail="detail"
@@ -144,7 +161,8 @@ export default defineComponent({
 			this.statusInfo = this.statusField;
 
 			if (this.detailMode) {
-				(this.$refs.detail as InstanceType<typeof DetailCard>).makeEdit();
+				(this.$refs.detailRef as InstanceType<typeof DetailCard>).makeEdit();
+				// Can append to the single PUT request the details
 			}
 
 			this.editMode = false;

@@ -16,7 +16,6 @@
 		></q-btn>
 		<!-- Toggle details -->
 		<q-btn
-			ref="detailToggleBtn"
 			flat
 			round
 			:icon="detailIcon"
@@ -53,7 +52,6 @@
 		></q-btn>
 		<!-- Toggle details -->
 		<q-btn
-			ref="detailToggleBtn"
 			flat
 			round
 			:icon="detailIcon"

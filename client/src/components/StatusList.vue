@@ -6,7 +6,7 @@
 
 <template>
 	<div class="content-wrap">
-		<div id="job-list" :key="update">
+		<div id="job-list" :key="update" ref="jobListRef" >
 			<StandardCard
 				v-for="(status, index) in statusList"
 				:index="index"
@@ -22,10 +22,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, h, render } from "vue";
 import StandardCard from "./Cards/StandardCard.vue";
 import { dataStore } from "@/store/DataStore";
-import { storeToRefs } from "pinia";
 
 export default defineComponent({
 	components: { StandardCard },
@@ -51,8 +50,11 @@ export default defineComponent({
 		},
 
 		addStatus() {
-			
-		}
+			// const newProps = {};
+			// const newCard = h(StandardCard, newProps);
+			// (this.$refs.jobListRef as HTMLElement).prepend();
+			// this.updateList();
+		},
 	},
 });
 </script>
