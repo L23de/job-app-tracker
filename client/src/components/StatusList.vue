@@ -1,3 +1,9 @@
+<!-- 
+	StatusList Component
+	Used to define how cards are laid out in the main web app and
+	the interactivity of each card
+-->
+
 <template>
 	<div class="content-wrap">
 		<div id="job-list" :key="update">

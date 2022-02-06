@@ -1,3 +1,8 @@
+<!-- 
+	App Component
+	Used to define the layout of the whole web app
+-->
+
 <template>
 	<div class="page-container">
 		<header class="header">Job App Tracker</header>

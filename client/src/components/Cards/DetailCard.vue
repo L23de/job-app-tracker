@@ -1,3 +1,8 @@
+<!-- 
+	DetailCard Component
+	Used to define the layout of the expanded details section of a card
+-->
+
 <template>
 	<div class="card-detail">
 		<div class="divider"></div>

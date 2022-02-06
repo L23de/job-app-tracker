@@ -1,3 +1,8 @@
+<!-- 
+	ExistingActions Component
+	Used to define the actions that appear on a card 
+-->
+
 <template>
 	<!-- Default Actions -->
 	<div v-if="!editMode" class="actions">

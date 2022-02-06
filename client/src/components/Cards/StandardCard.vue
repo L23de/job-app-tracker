@@ -1,3 +1,9 @@
+<!-- 
+	StandardCard Component
+	Used to define the layout of a single card in the statusList
+	Contains actions for modifying a single status, but not other statuses in the statusList 
+-->
+
 <template>
 	<div class="card">
 		<div class="card-basic">
@@ -27,7 +33,7 @@
 			<div class="right">
 				<!-- Card Status -->
 				<!-- <q-chip class="status">Accepted</q-chip> -->
-				<q-chip class="status" :key="statusField" :style="'background-color: var(--statusColor' + statusField.toString() + ')'">
+				<q-chip class="status" :key="statusField" :ripple="false" :style="'background-color: var(--statusColor' + statusField.toString() + ')'">
 					<q-select v-model="statusField" option-value="key" emit-value map-options :hide-dropdown-icon="!editMode" :readonly="!editMode" :options="options" options-dense borderless />
 				</q-chip>
 
@@ -63,10 +69,11 @@ export default defineComponent({
 	components: { DetailCard, ExistingActions },
 	props: {
 		index: { type: Number, required: true },
-		company: { type: String, required: true },
-		position: { type: String, required: true },
-		status: { type: Number, required: true },
-		detail: { type: String, required: true },
+		company: { type: String, required: true, default: "" },
+		position: { type: String, required: true, default: "" },
+		status: { type: Number, required: true, default: 0 },
+		detail: { type: String, required: true, default: "" },
+		newEdit: { type: Boolean, required: false },
 	},
 	emits: ["deleteStatus"],
 	setup(props) {
