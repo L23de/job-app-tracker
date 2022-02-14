@@ -85,12 +85,12 @@ import ExistingActions from "./ExistingActions.vue";
 export default defineComponent({
 	components: { DetailCard, ExistingActions },
 	props: {
-		index: { type: Number, required: true },
-		company: { type: String, required: true, default: "" },
-		position: { type: String, required: true, default: "" },
-		status: { type: Number, required: true, default: 0 },
-		detail: { type: String, required: true, default: "" },
-		newEdit: { type: Boolean, required: false },
+		index: { type: Number },
+		company: { type: String, default: "" },
+		position: { type: String, default: "" },
+		status: { type: Number, default: 0 },
+		detail: { type: String, default: "" },
+		newEdit: { type: Boolean },
 	},
 	emits: ["deleteStatus"],
 	setup(props) {
@@ -148,7 +148,7 @@ export default defineComponent({
 			this.statusField = this.statusInfo;
 
 			if (this.detailMode) {
-				(this.$refs.detail as InstanceType<typeof DetailCard>).cancelEdit();
+				(this.$refs.detailRef as InstanceType<typeof DetailCard>).cancelEdit();
 			}
 
 			this.editMode = false;

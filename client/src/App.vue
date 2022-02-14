@@ -8,6 +8,10 @@
 		<header class="header">Job App Tracker</header>
 
 		<StatusList ref="statusListRef"> </StatusList>
+		<!-- <StandardCard :newEdit="true"></StandardCard> -->
+		<div class="add-button" @click="addStatus">
+			<i class="fas fa-plus"></i>
+		</div>
 
 		<footer class="footer">
 			<a href="https://github.com/L23de/job-app-tracker" target="_blank"
@@ -20,12 +24,14 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import StatusList from "@/components/StatusList.vue";
+import StandardCard from "./components/Cards/StandardCard.vue";
 
 export default defineComponent({
 	name: "App",
 	components: {
-		StatusList,
-	},
+    StatusList,
+    StandardCard
+},
 	mounted() {
 		// Header is guaranteed to be in the DOM, so use '!' to override nullness of querySelector()
 		const header: Element = document.querySelector(".header")!;
@@ -69,6 +75,22 @@ export default defineComponent({
 
 .header--hidden {
 	transform: translateY(#{-1 * $navHeight});
+}
+
+.add-button {
+	position: fixed;
+	height: 50px;
+	width: 50px;
+	font-size: 30px;
+	font-weight: 100;
+	color: white;
+	line-height: 50px;
+	text-align: center;
+	background: $primary;
+	border-radius: 50%;
+	bottom: 2 * $footerHeight;
+	right: max(5vw, 50vw - 350px);
+	// ^ This somehow works to correct a right fixed FAB
 }
 
 .footer {

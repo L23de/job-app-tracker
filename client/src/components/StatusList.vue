@@ -9,20 +9,18 @@
 		<div id="job-list" :key="update" ref="jobListRef" >
 			<StandardCard
 				v-for="(status, index) in statusList"
+				:key="index"
 				:index="index"
 				v-bind="status"
 				@delete-status="deleteStatus"
 			/>
 		</div>
-
-		<div class="add-button" @click="addStatus">
-			<i class="fas fa-plus"></i>
-		</div>
+		
 	</div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, h, render } from "vue";
+import { computed, defineComponent, ref, createApp, h, render } from "vue";
 import StandardCard from "./Cards/StandardCard.vue";
 import { dataStore } from "@/store/DataStore";
 
@@ -50,10 +48,19 @@ export default defineComponent({
 		},
 
 		addStatus() {
-			// const newProps = {};
-			// const newCard = h(StandardCard, newProps);
-			// (this.$refs.jobListRef as HTMLElement).prepend();
-			// this.updateList();
+			const newStatus = defineComponent({
+				extends: StandardCard,
+				data() {
+					return {
+						newEdit: true
+					}
+				}
+			})
+
+			const newStatusDiv = document.createElement('div');
+			(this.$refs.jobListRef as HTMLElement).appendChild(newStatusDiv);
+			createApp(newStatus).mount(newStatusDiv);
+			this.updateList();
 		},
 	},
 });
@@ -66,21 +73,5 @@ export default defineComponent({
 	flex-direction: column;
 	align-items: center;
 	row-gap: $cardGap;
-}
-
-.add-button {
-	position: fixed;
-	height: 50px;
-	width: 50px;
-	font-size: 30px;
-	font-weight: 100;
-	color: white;
-	line-height: 50px;
-	text-align: center;
-	background: $primary;
-	border-radius: 50%;
-	bottom: 2 * $footerHeight;
-	right: max(5vw, 50vw - 350px);
-	// ^ This somehow works to correct a right fixed FAB
 }
 </style>
