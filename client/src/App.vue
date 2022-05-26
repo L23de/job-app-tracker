@@ -8,7 +8,6 @@
 		<header class="header">Job App Tracker</header>
 
 		<StatusList ref="statusListRef"> </StatusList>
-		<!-- <StandardCard :newEdit="true"></StandardCard> -->
 		<div class="add-button" @click="addStatus">
 			<i class="fas fa-plus"></i>
 		</div>
@@ -29,9 +28,9 @@ import StandardCard from "./components/Cards/StandardCard.vue";
 export default defineComponent({
 	name: "App",
 	components: {
-    StatusList,
-    StandardCard
-},
+		StatusList,
+		StandardCard
+	},
 	mounted() {
 		// Header is guaranteed to be in the DOM, so use '!' to override nullness of querySelector()
 		const header: Element = document.querySelector(".header")!;

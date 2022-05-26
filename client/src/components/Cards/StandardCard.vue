@@ -90,12 +90,12 @@ export default defineComponent({
 		position: { type: String, default: "" },
 		status: { type: Number, default: 0 },
 		detail: { type: String, default: "" },
-		newEdit: { type: Boolean },
+		newEdit: { type: Boolean, default: false },
 	},
 	emits: ["deleteStatus"],
 	setup(props) {
 		// Edit mode vars
-		const editMode = ref(false);
+		const editMode = ref(props.newEdit);
 
 		// Temp storage vars (Marked by XInfo)
 		const companyInfo = props.company;

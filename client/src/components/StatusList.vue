@@ -6,7 +6,7 @@
 
 <template>
 	<div class="content-wrap">
-		<div id="job-list" :key="update" ref="jobListRef" >
+		<div id="job-list" :key="update" ref="jobListRef">
 			<StandardCard
 				v-for="(status, index) in statusList"
 				:key="index"
@@ -48,19 +48,7 @@ export default defineComponent({
 		},
 
 		addStatus() {
-			const newStatus = defineComponent({
-				extends: StandardCard,
-				data() {
-					return {
-						newEdit: true
-					}
-				}
-			})
-
-			const newStatusDiv = document.createElement('div');
-			(this.$refs.jobListRef as HTMLElement).appendChild(newStatusDiv);
-			createApp(newStatus).mount(newStatusDiv);
-			this.updateList();
+			this.newJob = true
 		},
 	},
 });
