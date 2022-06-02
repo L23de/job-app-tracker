@@ -23,7 +23,7 @@ export default class StatusController extends defaultController {
 		return await this.repository.createStatus(status);
 	}
 
-	async updateStatus(id, newStatus: any) {
+	async updateStatus(id: number, newStatus: any) {
 		this.logger.info('Controller: updateStatus', null);
 		return await this.repository.updateStatus(id, newStatus);
 	}
