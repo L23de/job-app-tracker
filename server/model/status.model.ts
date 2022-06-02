@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo, BelongsToMany, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, BelongsToMany, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript';
 import User from './user.model';
 import Job from './job.model';
 import JobStatus from './jobStatus.model';
@@ -24,7 +24,7 @@ export default class Status extends Model {
 	// @BelongsTo(() => User, 'id')
 	// user: User;
 
-	@BelongsToMany(() => Job, () => JobStatus, 'id', 'jobId')
+	@BelongsToMany(() => Job, () => JobStatus)
 	jobs: Array<Job & {JobStatus: JobStatus}>;
-
+	
 }

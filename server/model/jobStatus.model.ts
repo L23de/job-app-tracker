@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, HasMany, BelongsToMany, ForeignKey, PrimaryKey } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, BelongsToMany, ForeignKey, PrimaryKey, BelongsTo } from 'sequelize-typescript';
 import Job from './job.model';
 import Status from './status.model';
 

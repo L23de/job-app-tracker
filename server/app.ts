@@ -14,7 +14,7 @@ class App {
     public express: express.Application;
     public logger: APILogger;
     // public taskController: TaskController;
-    // public jobController: Controllers.JobController;
+    public jobController: Controllers.JobController;
     public statusController: Controllers.StatusController;
 
     // swagger api doc files
@@ -31,8 +31,13 @@ class App {
         this.logger = new APILogger();
 
         const db = connect();
+        const force = process.env.UPDATE === "true" ? true : false;
+		db.sequelize.sync({ force: force }).then(() => {
+			console.log("Drop and re-sync db");
+		});
+
         // this.taskController = new TaskController(db);
-        // this.jobController = new Controllers.JobController(db);
+        this.jobController = new Controllers.JobController(db);
         this.statusController = new Controllers.StatusController(db);
     }
 
@@ -68,19 +73,37 @@ class App {
             this.statusController.getStatus(parseInt(req.params.id))
                 .then(data => res.json(data))
                 .catch(err => res.send("Make sure the id parameter is a numeric"));
-        })
+        });
+
+        this.express.get('/api/job', (req, res) => {
+            this.jobController.getJobs()
+                .then(data => res.json(data));
+        });
+
+        this.express.get('/api/job/:id', (req, res) => {
+            this.jobController.getJob(parseInt(req.params.id))
+                .then(data => res.json(data))
+                .catch(err => res.send("Make sure the id parameter is a numeric"));
+        });
+
 
         /** 
          * ================
          * POST Requests
          * ================ 
          */
+
         this.express.post('/api/status', (req, res) => {
             console.log(req.body);
             this.statusController.createStatus(req.body.status)
                 .then(data => res.json(data));
-        })
+        });
 
+        this.express.post('/api/job', (req, res) => {
+            console.log(req.body);
+            this.jobController.createJob(req.body.job)
+                .then(data => res.json(data));
+        });
 
 
         /** 

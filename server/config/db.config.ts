@@ -32,6 +32,9 @@ export const connect = () => {
     const db: any = {};
     db.Sequelize = Sequelize;
     db.sequelize = sequelize;
+    db.statusRepository = sequelize.getRepository(Models.Status);
+    db.jobRepository = sequelize.getRepository(Models.Job);
+    db.jobStatusesRepository = sequelize.getRepository(Models.JobStatus);
     
     return db;
 
