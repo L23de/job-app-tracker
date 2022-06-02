@@ -88,6 +88,11 @@ class App {
          * PUT Requests
          * ================ 
          */
+        this.express.put('/api/status/:id', (req, res) => {
+            console.log(req.body);
+            this.statusController.updateStatus(parseInt(req.params.id), req.body.status)
+                .then(data => res.json(data));
+        });
 
 
 

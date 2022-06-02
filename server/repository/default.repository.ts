@@ -9,7 +9,7 @@ export default class defaultRepository {
 
 	constructor(db: any, model: typeof Model) {
 		this.db = db;
-		const force = process.env.DEV === "true" ? true : false;
+		const force = process.env.UPDATE === "true" ? true : false;
 		this.db.sequelize.sync({ force: force }).then(() => {
 			console.log("Drop and re-sync db");
 		});

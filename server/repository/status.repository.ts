@@ -38,4 +38,19 @@ export default class StatusRepository extends defaultRepository {
 			.catch(err => this.logger.error('Error::' + err));
 	}
 
+	async updateStatus(id, newStatus) {
+		return await this.repository.update(
+			newStatus, 
+			{ where: { id: id }}
+		)
+			.then(data => data)
+			.catch(err => this.logger.error('Error::' + err));
+	}
+
+	async deleteStatus(id) {
+		let n = await this.repository.delete({ where: { id: id } });
+		console.log(`deleted ${n} rows`);
+		return n;
+	}
+
 };
