@@ -5,15 +5,15 @@
         "version": "1.0.0",
         "title": "Tasks API",
         "contact": {
-            "email": "abc@gmail.com"
+            "email": "huangl302d@gmail.com"
         },
         "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
         }
     },
     "schemes": ["http"],
-    "host": "localhost:3081",
+    "host": "localhost:3080",
     "basePath": "/api",
     "paths" : {
         "/tasks" : {

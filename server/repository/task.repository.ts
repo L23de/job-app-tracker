@@ -1,4 +1,4 @@
-import { connect } from "../config/db.config";
+import { Sequelize } from "sequelize/types";
 import { APILogger } from '../logger/api.logger';
 import { Tasks } from "../model/task.model";
 
@@ -8,8 +8,8 @@ export class TaskRepository {
     private db: any = {};
     private taskRespository: any;
 
-    constructor() {
-        this.db = connect();
+    constructor(db: any) {
+        this.db = db;
         
 		const force = process.env.DEV === "true" ? true : false;
         this.db.sequelize.sync({ force: force }).then(() => {

@@ -1,6 +1,5 @@
-import { Sequelize } from 'sequelize-typescript'
-import { Tasks } from '../model/task.model';
-import * as pg from 'pg';
+import { Sequelize } from 'sequelize-typescript';
+import * as Models from '../model';
 
 export const connect = () => {
 
@@ -15,7 +14,6 @@ export const connect = () => {
         host: hostName,
         port: port,
         dialect,
-        // operatorsAliases,
         repositoryMode: true,
         pool: {
             max: 10,
@@ -25,7 +23,11 @@ export const connect = () => {
         }
     });
 
-    sequelize.addModels([Tasks]);
+    sequelize.addModels([
+        // Models.User, 
+        Models.Status, 
+        Models.Job, 
+        Models.JobStatus]);
 
     const db: any = {};
     db.Sequelize = Sequelize;

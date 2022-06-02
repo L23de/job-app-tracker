@@ -1,23 +1,27 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { APILogger } from "./logger/api.logger";
-import { TaskController } from "./controller/task.controller";
+import * as Controllers from './controller';
+// import { TaskController } from "./controller/task.controller";
+import { connect } from "./config/db.config";
 import * as swaggerUi from 'swagger-ui-express';
 import * as fs from 'fs';
-import 'dotenv/config'
+import 'dotenv/config';
+
 
 class App {
 
     public express: express.Application;
     public logger: APILogger;
-    public taskController: TaskController;
+    // public taskController: TaskController;
+    // public jobController: Controllers.JobController;
+    public statusController: Controllers.StatusController;
 
-    /* Swagger files start */
+    // swagger api doc files
     private swaggerFile: any = (process.cwd()+"/swagger/swagger.json");
     private swaggerData: any = fs.readFileSync(this.swaggerFile, 'utf8');
     private customCss: any = fs.readFileSync((process.cwd()+"/swagger/swagger.css"), 'utf8');
     private swaggerDocument = JSON.parse(this.swaggerData);
-    /* Swagger files end */
 
 
     constructor() {
@@ -25,10 +29,14 @@ class App {
         this.middleware();
         this.routes();
         this.logger = new APILogger();
-        this.taskController = new TaskController();
+
+        const db = connect();
+        // this.taskController = new TaskController(db);
+        // this.jobController = new Controllers.JobController(db);
+        this.statusController = new Controllers.StatusController(db);
     }
 
-    // Configure Express middleware.
+    // configure express middleware
     private middleware(): void {
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
@@ -36,36 +44,86 @@ class App {
 
     private routes(): void {
 
-        this.express.get('/api/tasks', (req, res) => {
-            this.taskController.getTasks().then(data => res.json(data));
-        });
-        
-        this.express.post('/api/task', (req, res) => {
-            console.log(req.body);
-            this.taskController.createTask(req.body.task).then(data => res.json(data));
-        });
-        
-        this.express.put('/api/task', (req, res) => {
-            this.taskController.updateTask(req.body.task).then(data => res.json(data));
-        });
-        
-        this.express.delete('/api/task/:id', (req, res) => {
-            this.taskController.deleteTask(req.params.id).then(data => res.json(data));
-        });
-
         this.express.get("/", (req, res, next) => {
             res.send("Typescript App works!!");
         });
 
         // swagger docs
-        this.express.use('/api/docs', swaggerUi.serve,
-            swaggerUi.setup(this.swaggerDocument, null, null, this.customCss));
+        // this.express.use('/api/docs', swaggerUi.serve,
+        //     swaggerUi.setup(this.swaggerDocument, null, null, this.customCss));
 
-        // handle undefined routes
+
+        /** 
+         * ================
+         * GET Requests
+         * ================ 
+         */
+
+        this.express.get('/api/status', (req, res) => {
+            this.statusController.getStatuses()
+                .then(data => res.json(data));
+        });
+
+        this.express.get('/api/status/:id', (req, res) => {
+            this.statusController.getStatus(parseInt(req.params.id))
+                .then(data => res.json(data))
+                .catch(err => res.send("Make sure the id parameter is a numeric"));
+        })
+
+        /** 
+         * ================
+         * POST Requests
+         * ================ 
+         */
+        this.express.post('/api/status', (req, res) => {
+            console.log(req.body);
+            this.statusController.createStatus(req.body.status)
+                .then(data => res.json(data));
+        })
+
+
+
+        /** 
+         * ================
+         * PUT Requests
+         * ================ 
+         */
+
+
+
+        /** 
+         * ================
+         * DELETE Requests
+         * ================ 
+         */
+
+
+
+        // handle undefined routes 
         this.express.use("*", (req, res, next) => {
             res.send("Make sure url is correct!!!");
         });
+
+
+        // this.express.get('/api/tasks', (req, res) => {
+        //     this.taskController.getTasks().then(data => res.json(data));
+        // });
+        
+        // this.express.post('/api/task', (req, res) => {
+        //     console.log(req.body);
+        //     this.taskController.createTask(req.body.task).then(data => res.json(data));
+        // });
+        
+        // this.express.put('/api/task', (req, res) => {
+        //     this.taskController.updateTask(req.body.task).then(data => res.json(data));
+        // });
+        
+        // this.express.delete('/api/task/:id', (req, res) => {
+        //     this.taskController.deleteTask(req.params.id).then(data => res.json(data));
+        // });
+
     }
+
 }
 
 export default new App().express;
