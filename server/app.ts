@@ -13,9 +13,9 @@ class App {
 
     public express: express.Application;
     public logger: APILogger;
-    // public taskController: TaskController;
-    public jobController: Controllers.JobController;
-    public statusController: Controllers.StatusController;
+    private jobController: Controllers.JobController;
+    private statusController: Controllers.StatusController;
+    private jobStatusController: Controllers.JobStatusController;
 
     // swagger api doc files
     private swaggerFile: any = (process.cwd()+"/swagger/swagger.json");
@@ -39,6 +39,7 @@ class App {
         // this.taskController = new TaskController(db);
         this.jobController = new Controllers.JobController(db);
         this.statusController = new Controllers.StatusController(db);
+        this.jobStatusController = new Controllers.JobStatusController(db);
     }
 
     // configure express middleware
@@ -70,7 +71,7 @@ class App {
         });
 
         this.express.get('/api/status/:id', (req, res) => {
-            this.statusController.getStatus(parseInt(req.params.id))
+            this.statusController.getStatus(parseInt(req.params.id, 10))
                 .then(data => res.json(data))
                 .catch(err => res.send('make sure the id parameter is a numeric'));
         });
@@ -81,7 +82,13 @@ class App {
         });
 
         this.express.get('/api/job/:id', (req, res) => {
-            this.jobController.getJob(parseInt(req.params.id))
+            this.jobController.getJob(parseInt(req.params.id, 10))
+                .then(data => res.json(data))
+                .catch(err => res.send('make sure the id parameter is a numeric'));
+        });
+
+        this.express.get('/api/jobStatus/:jid', (req, res) => {
+            this.jobStatusController.getJobStatuses(parseInt(req.params.jid, 10))
                 .then(data => res.json(data))
                 .catch(err => res.send('make sure the id parameter is a numeric'));
         });
@@ -105,6 +112,12 @@ class App {
                 .then(data => res.json(data));
         });
 
+        this.express.post('/api/jobStatus', (req, res) => {
+            console.log(req.body);
+            this.jobStatusController.createJobStatus(req.body.jobStatus)
+                .then(data => res.json(data));
+        });
+
 
         /** 
          * ================
@@ -113,14 +126,24 @@ class App {
          */
         this.express.put('/api/status/:id', (req, res) => {
             console.log(req.body);
-            this.statusController.updateStatus(parseInt(req.params.id), req.body.status)
+            this.statusController.updateStatus(parseInt(req.params.id, 10), req.body.status)
                 .then(data => res.json(data))
                 .catch(err => res.send('make sure the id parameter is a numeric'));
         });
 
         this.express.put('/api/job/:id', (req, res) => {
             console.log(req.body);
-            this.jobController.updateJob(parseInt(req.params.id), req.body.job)
+            this.jobController.updateJob(parseInt(req.params.id, 10), req.body.job)
+                .then(data => res.json(data))
+                .catch(err => res.send('make sure the id parameter is a numeric'));
+        });
+
+        this.express.put('/api/jobStatus/:jid/:sid', (req, res) => {
+            this.jobStatusController.updateJobStatus(
+                parseInt(req.params.jid, 10),
+                parseInt(req.params.sid, 10),
+                req.body.updated
+            )
                 .then(data => res.json(data))
                 .catch(err => res.send('make sure the id parameter is a numeric'));
         });
@@ -133,13 +156,13 @@ class App {
          * ================ 
          */
         this.express.delete('/api/status/:id', (req, res) => {
-            this.statusController.deleteStatus(parseInt(req.params.id))
+            this.statusController.deleteStatus(parseInt(req.params.id, 10))
                 .then(data => res.json(data))
                 .catch(err => res.send('make sure the id parameter is a numeric'));
         });
 
         this.express.delete('/api/job/:id', (req, res) => {
-            this.jobController.deleteJob(parseInt(req.params.id))
+            this.jobController.deleteJob(parseInt(req.params.id, 10))
                 .then(data => res.json(data))
                 .catch(err => res.send('make sure the id parameter is a numeric'));
         });

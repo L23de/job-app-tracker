@@ -1,22 +1,17 @@
 import defaultController from './default.controller';
-import JobRepository from '../repository/job.repository';
-import { Job, Status } from '../model';
-import { Model, Sequelize, UpdatedAt } from 'sequelize-typescript';
-import { literal, Op, QueryTypes } from 'sequelize';
+import { QueryTypes } from 'sequelize';
 
 export default class JobController extends defaultController {
 
     private sequelize: any;
     private jobs: any;
-    private statuses: any ;
-    private jobStatuses: any;
+    private statuses: any;
 
     constructor(db: any) {
         super();
         this.sequelize = db.sequelize;
         this.jobs = db.jobRepository;
         this.statuses = db.statusRepository;
-        this.jobStatuses = db.jobStatusRepository;
     }
 
     async getJobs() {
@@ -51,6 +46,7 @@ export default class JobController extends defaultController {
                     updatedAt: element.update
                 });
             });
+            console.log('jobs:::', data);
             return data;
         }).catch(err => {
             this.logger.error(err);
@@ -64,11 +60,11 @@ export default class JobController extends defaultController {
 			where: { id: id },
 			include: { model: this.statuses }
 		}).then(status => {
-			console.log('status:::', status);
+			console.log('job:::', status);
 			return status;
 		}).catch(err => {
 			this.logger.error(err);
-			return { 'error': err };
+			return { error: err };
 		});
     }
 
@@ -90,7 +86,7 @@ export default class JobController extends defaultController {
             });
         } catch (err) {
 			this.logger.error(err);
-			return { 'error': err };
+			return { error: err };
 		}
     }
 
@@ -103,20 +99,21 @@ export default class JobController extends defaultController {
             .then(data => data)
             .catch(err => {
                 console.log(err);
-                return { 'error': err };
+                return { error: err };
             });
     }
 
     async deleteJob(id: number) {
         this.logger.info(`Controller: deleteJob(${id})`, null);
-        try {
-            let n = await this.jobs.destroy({ where: { id: id } })
+        return await this.jobs.destroy({ 
+            where: { id: id } 
+        }).then(n => {
             console.log(`deleted ${n} row(s)`);
             return n;
-        } catch (err) {
+        }).catch(err => {
             this.logger.error(err);
             return { error: err };
-        }
+        });
     }
 
 }

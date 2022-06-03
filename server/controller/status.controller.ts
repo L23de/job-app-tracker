@@ -19,7 +19,7 @@ export default class StatusController extends defaultController {
 			})
 			.catch(err => {
 				console.log(err);
-				return { 'error': err };
+				return { error: err };
 			});
 	}
 
@@ -32,7 +32,7 @@ export default class StatusController extends defaultController {
 			return status;
 		}).catch(err => {
 			console.log(err);
-			return { 'error': err };
+			return { error: err };
 		});
 	}
 
@@ -42,7 +42,7 @@ export default class StatusController extends defaultController {
 			.then(data => data)
 			.catch(err => {
 				console.log(err);
-				return { 'error': err };
+				return { error: err };
 			});
 	}
 
@@ -55,7 +55,7 @@ export default class StatusController extends defaultController {
 			.then(data => data)
 			.catch(err => {
 				console.log(err);
-				return { 'error': err };
+				return { error: err };
 			});
 	}
 

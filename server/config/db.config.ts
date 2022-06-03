@@ -34,7 +34,7 @@ export const connect = () => {
     db.sequelize = sequelize;
     db.statusRepository = sequelize.getRepository(Models.Status);
     db.jobRepository = sequelize.getRepository(Models.Job);
-    db.jobStatusesRepository = sequelize.getRepository(Models.JobStatus);
+    db.jobStatusRepository = sequelize.getRepository(Models.JobStatus);
     
     return db;
 
