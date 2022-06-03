@@ -35,6 +35,8 @@ export const connect = () => {
     db.statusRepository = sequelize.getRepository(Models.Status);
     db.jobRepository = sequelize.getRepository(Models.Job);
     db.jobStatusRepository = sequelize.getRepository(Models.JobStatus);
+
+    // set up postgres indexing
     
     return db;
 

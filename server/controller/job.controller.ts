@@ -6,6 +6,8 @@ export default class JobController extends defaultController {
     private sequelize: any;
     private jobs: any;
     private statuses: any;
+    // private init = false;
+    private init = true;
 
     constructor(db: any) {
         super();
@@ -15,6 +17,15 @@ export default class JobController extends defaultController {
     }
 
     async getJobs() {
+        // run only on the first fetch
+        // check when force refresh of db
+        if (!this.init) {
+            console.log('setting up indices for the first time');
+            await this.sequelize.query('create index job_status_index on "JobStatuses" ("jobId", "updatedAt")');
+            await this.sequelize.query('cluster "JobStatuses" using job_status_index');
+            this.init = true;
+        }
+
         this.logger.info('Controller: getJobs', null);
 
         // used a normal SQL query bc sequelize doesn't seem to support subqueries well
@@ -25,11 +36,8 @@ export default class JobController extends defaultController {
                 ("JobStatuses" join "Jobs" on "jobId" = "Jobs".id)
                 join "Statuses" on "statusId" = "Statuses".id
             )
-            select A.* from job_status as A
-                left outer join job_status as C
-                on A.jid = C.jid and A.sid = C.sid and A.update < C.update
-                where C.jid is null
-                order by jid;`,
+            select distinct on (jid) *
+            from job_status order by jid, update desc`,
             { type: QueryTypes.SELECT }
         ).then((res: any[], meta) => {
             let data = [];

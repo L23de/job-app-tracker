@@ -124,6 +124,7 @@ class App {
          * PUT Requests
          * ================ 
          */
+
         this.express.put('/api/status/:id', (req, res) => {
             console.log(req.body);
             this.statusController.updateStatus(parseInt(req.params.id, 10), req.body.status)
@@ -155,6 +156,7 @@ class App {
          * DELETE Requests
          * ================ 
          */
+
         this.express.delete('/api/status/:id', (req, res) => {
             this.statusController.deleteStatus(parseInt(req.params.id, 10))
                 .then(data => res.json(data))
@@ -184,24 +186,6 @@ class App {
         this.express.use("*", (req, res, next) => {
             res.send("Make sure url is correct!!!");
         });
-
-
-        // this.express.get('/api/tasks', (req, res) => {
-        //     this.taskController.getTasks().then(data => res.json(data));
-        // });
-        
-        // this.express.post('/api/task', (req, res) => {
-        //     console.log(req.body);
-        //     this.taskController.createTask(req.body.task).then(data => res.json(data));
-        // });
-        
-        // this.express.put('/api/task', (req, res) => {
-        //     this.taskController.updateTask(req.body.task).then(data => res.json(data));
-        // });
-        
-        // this.express.delete('/api/task/:id', (req, res) => {
-        //     this.taskController.deleteTask(req.params.id).then(data => res.json(data));
-        // });
 
     }
 
