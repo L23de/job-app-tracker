@@ -3,16 +3,16 @@ import defaultController from "./default.controller";
 
 export default class StatusController extends defaultController {
 
-	private statusRepository: any;
+	private statuses: any;
 
 	constructor(db: any) {
 		super();
-		this.statusRepository = db.statusRepository;
+		this.statuses = db.statusRepository;
 	}
 
 	async getStatuses() {
 		this.logger.info('Controller: getStatuses', null);
-		return await this.statusRepository.findAll()
+		return await this.statuses.findAll()
 			.then(statuses => {
 				console.log('statuses:::', statuses);
 				return statuses;
@@ -25,7 +25,7 @@ export default class StatusController extends defaultController {
 
 	async getStatus(id: number) {
 		this.logger.info(`Controller: getStatus(${id})`, null);
-		return await this.statusRepository.findOne({
+		return await this.statuses.findOne({
 			where: { id: id }
 		}).then(status => {
 			console.log('status:::', status);
@@ -38,7 +38,7 @@ export default class StatusController extends defaultController {
 
 	async createStatus(status: any) {
 		this.logger.info('Controller: createStatus', null);
-		return await this.statusRepository.create(status)
+		return await this.statuses.create(status)
 			.then(data => data)
 			.catch(err => {
 				console.log(err);
@@ -47,8 +47,8 @@ export default class StatusController extends defaultController {
 	}
 
 	async updateStatus(id: number, newStatus: any) {
-		this.logger.info('Controller: updateStatus', null);
-		return await this.statusRepository.update(
+		this.logger.info(`Controller: updateJob(${id})`, null);
+		return await this.statuses.update(
 			newStatus, 
 			{ where: { id: id }}
 		)
@@ -60,10 +60,15 @@ export default class StatusController extends defaultController {
 	}
 
 	async deleteStatus(id: number) {
-		this.logger.info(`Controller: deleteStatus(${id})`, null)
-		let n = await this.statusRepository.delete({ where: { id: id } });
-		console.log(`deleted ${n} row(s)`);
-		return n;
+		this.logger.info(`Controller: deleteStatus(${id})`, null);
+		try {
+            let n = await this.statuses.destroy({ where: { id: id } })
+            console.log(`deleted ${n} row(s)`);
+            return n;
+        } catch (err) {
+            this.logger.error(err);
+            return { error: err };
+        }
 	}
 
 };
