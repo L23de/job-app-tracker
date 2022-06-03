@@ -9,10 +9,10 @@ export default class JobStatusController extends defaultController {
 		this.jobStatus = db.jobStatusRepository;
 	}
 
-	async getJobStatuses(jobId: number) {
-		this.logger.info(`Controller: getJobStatuses(${jobId})`, null);
+	async getJobStatuses(jid: number) {
+		this.logger.info(`Controller: getJobStatuses(${jid})`, null);
 		return await this.jobStatus.findAll({
-			where: { jid: jobId }
+			where: { jobId: jid }
 		}).then(data => {
 			console.log('jobStatus:::', data);
 			return data;
@@ -33,7 +33,7 @@ export default class JobStatusController extends defaultController {
 	}
 
 	// date may have to change API date format
-	async updateJobStatus(jobId: number, statusId: number, date: any) {
+	async updateJobStatus(jid: number, sid: number, date: any) {
 		this.logger.info('Controller: updateJobStatus', null);
 		try {
 
@@ -43,7 +43,7 @@ export default class JobStatusController extends defaultController {
 
 			return await this.jobStatus.update(
 				toUpdate,
-				{ where: { jid: jobId, sid: statusId }}
+				{ where: { jobId: jid, statusId: sid }}
 			)
 				.then(data => data)
 				.catch(err => {
@@ -54,12 +54,28 @@ export default class JobStatusController extends defaultController {
 		} catch (err) {
 
 			if (err instanceof RangeError) {
-				console.log('bad date format received')
+				err.message = 'bad date format received';
 			}
 			console.log(err);
 			return { error: err };
 
 		}
+	}
+
+	async deleteJobStatus(jid: number, sid: number) {
+		this.logger.info(`Controller: deleteJobStatus(${jid},${sid})`, null);
+		return await this.jobStatus.destroy({
+			where: {
+				jobId: jid,
+				statusId: sid
+			}
+		}).then(n => {
+			console.log(`deleted ${n} row(s)`);
+            return n;
+        }).catch(err => {
+            this.logger.error(err);
+            return { error: err };
+        });
 	}
 
 }

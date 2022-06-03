@@ -167,6 +167,16 @@ class App {
                 .catch(err => res.send('make sure the id parameter is a numeric'));
         });
 
+        this.express.delete('/api/jobStatus/:jid/:sid', (req, res) => {
+            const jid = parseInt(req.params.jid, 10);
+            const sid = parseInt(req.params.sid, 10);
+            if (isNaN(jid + sid)) {
+                return { error: 'make sure the id parameter is a numeric' };
+            }
+
+            this.jobStatusController.deleteJobStatus(jid, sid).then(data => res.json(data));
+        });
+
 
 
 

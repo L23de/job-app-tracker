@@ -61,14 +61,15 @@ export default class StatusController extends defaultController {
 
 	async deleteStatus(id: number) {
 		this.logger.info(`Controller: deleteStatus(${id})`, null);
-		try {
-            let n = await this.statuses.destroy({ where: { id: id } })
+		return await this.statuses.destroy({ 
+            where: { id: id } 
+        }).then(n => {
             console.log(`deleted ${n} row(s)`);
             return n;
-        } catch (err) {
+        }).catch(err => {
             this.logger.error(err);
             return { error: err };
-        }
+        });
 	}
 
 };
