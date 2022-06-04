@@ -29,7 +29,7 @@ export default class JobController extends defaultController {
         this.logger.info('Controller: getJobs', null);
 
         // used a normal SQL query bc sequelize doesn't seem to support subqueries well
-        // src: https://stackoverflow.com/questions/7745609/sql-select-only-rows-with-max-value-on-a-column
+        // src: https://www.sisense.com/blog/first-row-per-group-5x-faster/
         return await this.sequelize.query(
             `with job_status as (
                 select "Jobs".id as jid, "company", "position", "notes", "Statuses".id as sid, "name", "color", "JobStatuses"."updatedAt" as "update" from 
