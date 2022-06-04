@@ -1,4 +1,4 @@
-DEV=true
+UPDATE=true
 
 DB=postgres
 DIALECT=postgres
